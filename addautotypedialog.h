@@ -18,6 +18,10 @@ public:
     explicit AddAutoTypeDialog(QWidget *parent = 0);
     ~AddAutoTypeDialog();
 
+    void setProcessID(const QVariant& _processID);
+    void setModuleName(const QVariant& _moduleName);
+    void setTitle(const QVariant& _title);
+
     QVariant processID() const;
     QVariant moduleName() const;
     QVariant title() const;

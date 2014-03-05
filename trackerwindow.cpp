@@ -5,6 +5,8 @@
 #include "typedialog.h"
 #include "autotypedialog.h"
 #include "ltypesdialog.h"
+#include "awayactiondialog.h"
+#include "addautotypedialog.h"
 
 #include <QtSql/QtSql>
 #include <QMessageBox>
@@ -29,7 +31,11 @@ TrackerWindow::TrackerWindow(QWidget *parent) :
     ui->tableView->setSortingEnabled(true);
 
     perTypeModel_->setTable("total_time_by_type");
+    perTypeModel_->setHeaderData(0, Qt::Horizontal, tr("Type Name"));
+    perTypeModel_->setHeaderData(1, Qt::Horizontal, tr("Total(time)"));
+    perTypeModel_->setHeaderData(2, Qt::Horizontal, tr("Total(%)"));
     ui->tvSummary->setModel(perTypeModel_);
+    ui->tvSummary->setSortingEnabled(true);
     perTypeModel_->select();
 }
 
@@ -78,4 +84,43 @@ void TrackerWindow::on_actionSetType_triggered()
 void TrackerWindow::on_actionRefresh_triggered()
 {
     model_->select();
+}
+
+void TrackerWindow::on_actionAway_Action_triggered()
+{
+    AwayActionDialog().exec();
+}
+
+void TrackerWindow::on_actionGenerate_Auto_Type_triggered()
+{
+    QModelIndexList indexes = ui->tableView->selectionModel()->selectedRows();
+    for (const QModelIndex& idx : indexes)
+    {
+        AddAutoTypeDialog d;
+        d.setProcessID(model_->data(model_->index(idx.row(), 0)));
+        d.setModuleName(model_->data(model_->index(idx.row(), 2)));
+        d.setTitle(model_->data(model_->index(idx.row(), 1)));
+
+        if (d.exec() == QDialog::Accepted)
+        {
+            QSqlQuery q;
+            q.prepare("INSERT INTO auto_type (process_id, module_name, title, type_id, priority) VALUES "
+                      "(:process_id, :module_name, :title, :type_id, :priority)");
+            q.bindValue(":process_id",  d.processID());
+            q.bindValue(":module_name", d.moduleName());
+            q.bindValue(":title",       d.title());
+            q.bindValue(":type_id",     d.typeID());
+            q.bindValue(":priority",    d.priority());
+            q.exec();
+
+            q.prepare("UPDATE record SET type_id = :type_id WHERE process_id = :process_id AND title = :title AND module_name = :module_name");
+            q.bindValue(":type_id",     d.typeID());
+            q.bindValue(":process_id",  model_->data(model_->index(idx.row(), 0)));
+            q.bindValue(":title",       model_->data(model_->index(idx.row(), 1)));
+            q.bindValue(":module_name", model_->data(model_->index(idx.row(), 2)));
+            q.exec();
+
+            model_->select();
+        }
+    }
 }

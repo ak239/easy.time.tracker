@@ -25,6 +25,21 @@ AddAutoTypeDialog::~AddAutoTypeDialog()
     delete ui;
 }
 
+void AddAutoTypeDialog::setProcessID(const QVariant &_processID)
+{
+    ui->leProcessID->setText(_processID.isNull() ? "" : _processID.toString());
+}
+
+void AddAutoTypeDialog::setModuleName(const QVariant &_moduleName)
+{
+    ui->leModuleName->setText(_moduleName.isNull() ? "" : _moduleName.toString());
+}
+
+void AddAutoTypeDialog::setTitle(const QVariant &_title)
+{
+    ui->leTitle->setText(_title.isNull() ? "" : _title.toString());
+}
+
 QVariant AddAutoTypeDialog::processID() const
 {
     bool isOk = false;

@@ -27,6 +27,10 @@ private slots:
 
     void on_actionRefresh_triggered();
 
+    void on_actionAway_Action_triggered();
+
+    void on_actionGenerate_Auto_Type_triggered();
+
 private:
     QSqlTableModel* model_;
     QSqlTableModel* perTypeModel_;

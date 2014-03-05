@@ -14,6 +14,7 @@ TypeDialog::TypeDialog(QWidget *parent) :
     model_->setTable("type");
     ui->cbType->setModel(model_);
     ui->cbType->setModelColumn(1);
+    ui->cbType->setCurrentIndex(0);
 
     model_->select();
 }

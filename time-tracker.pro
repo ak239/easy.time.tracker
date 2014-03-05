@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     autotypedialog.cpp \
     addautotypedialog.cpp \
     ltypesdialog.cpp \
-    onetypedialog.cpp
+    onetypedialog.cpp \
+    awayactiondialog.cpp
 
 HEADERS  += trackerwindow.h \
     currentwindow.h \
@@ -27,11 +28,13 @@ HEADERS  += trackerwindow.h \
     autotypedialog.h \
     addautotypedialog.h \
     ltypesdialog.h \
-    onetypedialog.h
+    onetypedialog.h \
+    awayactiondialog.h
 
 FORMS    += trackerwindow.ui \
     typedialog.ui \
     autotypedialog.ui \
     addautotypedialog.ui \
     ltypesdialog.ui \
-    onetypedialog.ui
+    onetypedialog.ui \
+    awayactiondialog.ui

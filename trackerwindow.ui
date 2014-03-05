@@ -57,6 +57,8 @@
    <addaction name="actionTypes"/>
    <addaction name="actionSetType"/>
    <addaction name="actionRefresh"/>
+   <addaction name="actionAway_Action"/>
+   <addaction name="actionGenerate_Auto_Type"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAutoTypes">
@@ -77,6 +79,16 @@
   <action name="actionRefresh">
    <property name="text">
     <string>Refresh</string>
+   </property>
+  </action>
+  <action name="actionAway_Action">
+   <property name="text">
+    <string>Away Action..</string>
+   </property>
+  </action>
+  <action name="actionGenerate_Auto_Type">
+   <property name="text">
+    <string>Generate Auto Type..</string>
    </property>
   </action>
  </widget>
